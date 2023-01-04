@@ -1,4 +1,4 @@
-import { createRef, useEffect, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 // @ts-ignore
 import Pdf from "react-to-pdf";
 
@@ -8,10 +8,31 @@ const IMAGE_URL =
 
 // const IMAGE_URL = "https://i.imgur.com/AX0TY0i.png";
 
+// add image to canvas
+
 function App() {
   const ref = createRef();
 
   const [imageBase64, setImageBase64] = useState("");
+
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (canvasRef) {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const image = new Image();
+        image.src = IMAGE_URL;
+        image.onload = () => {
+          // @ts-ignore
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0);
+        };
+      }
+    }
+  }, [canvasRef]);
+  // @ts-ignore
+  // @ts-ignore
 
   useEffect(() => {
     async function fetchImage() {
@@ -46,9 +67,8 @@ function App() {
         ref={ref}
         className="w-[1920px] h-[1080px] flex flex-col gap-4 rounded bg-gray-200 p-4"
       >
-        <h1 className="text-lg">Seu certificado!</h1>
         <div
-          style={{ backgroundImage: `url(${imageBase64})` }}
+          style={{ backgroundImage: `url(${IMAGE_URL})` }}
           className={`w-[125px] bg-cover h-[40px] border border-red-400`}
         />
       </div>
