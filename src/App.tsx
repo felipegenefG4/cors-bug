@@ -67,6 +67,9 @@ function App() {
         ref={ref}
         className="w-[1920px] h-[1080px] flex flex-col gap-4 rounded bg-gray-200 p-4"
       >
+        <h1 className="text-red-400">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+        </h1>
         <div
           style={{ backgroundImage: `url(${IMAGE_URL})` }}
           className={`w-[125px] bg-cover h-[40px] border border-red-400`}
